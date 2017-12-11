@@ -33,8 +33,11 @@ app.use(allowCrossDomain);
 //for DB calls
 var controller = require('./controller.js');
 var controllerGet = require('./controllerGet.js');
-var controllerPost = require('./controllerPost.js');.
+var controllerPost = require('./controllerPost.js');
 var controllerPut = require('./controllerPut.js');
+var controllerDelete = require('./controllerDelete.js');
+
+
 
 
 
@@ -78,6 +81,10 @@ app.get('/users',function(req, res){
 
 app.post('/user',function(req, res){
 	controllerPost.addUser(res,req);
+});
+
+app.delete('/user/:idUser',function(req, res){
+	controllerDelete.removeUser(res,req);
 });
 
 //wait for a connection

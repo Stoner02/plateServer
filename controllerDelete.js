@@ -17,18 +17,15 @@ var connection = mysql.createConnection({
 
 module.exports = {
 	
-	addUser: function addUser(res, req){
+	removeUser: function removeUser(res, req){
         
         var bResult = '';
 		
         var p = new Promise((resolve, reject) => {
-			var sNom = req.body.nom;
-			var sPrenom = req.body.prenom;
-			var sMail = req.body.mail;
-			var sPassword = req.body.password;
-			var iIdGroupe = Number(req.body.FK_groupe);
+			var iIdUtilisateur = Number(req.params.idUser);
+			console.log('idUser:'+iIdUtilisateur);
 
-            connection.query("CALL ps_Insert_Utilisateur(" + iIdGroupe + ", '" + sNom + "', '" + sPrenom + "', '" + sMail + "', '" + sPassword + "')",
+            connection.query("CALL ps_DesactiverUtilisateur(" + iIdUtilisateur +")",
 				function (err, result, fields) {
 					if (err) throw err;
 					console.log('Message: '+result[0][0].message);
@@ -37,11 +34,7 @@ module.exports = {
         })
             .then(data => {
                 bResult=data;
-				if(data == '0'){
-					res.status(404).json(data);
-				}else{
-					res.status(200).json(data);
-				}			
+				res.status(200).json(data);	
 				return (bResult);
             })
             .catch((error) => {
