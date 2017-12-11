@@ -1,3 +1,17 @@
+var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+
+    // intercept OPTIONS method
+    if ('OPTIONS' == req.method) {
+      res.send(200);
+    }
+    else {
+      next();
+    }
+};
+
 
 //-----------------------------
 //require des modules
@@ -14,8 +28,11 @@ app.use(bodyParser.json());
 //tell express that www is the root of our public web folder
 app.use(express.static(path.join(__dirname, 'www')));
 
+app.use(allowCrossDomain);
+
 //for DB calls
 var controller = require('./controller.js');
+var controllerGet = require('./controllerGetPost.js');
 
 //-----------------------------
 // Déclaration des caméras
@@ -27,6 +44,8 @@ var plateCam2 = 0;
 //tell express what to do when the /form route is requested
 //-----------------------------
 app.post('/form',function(req, res){
+	
+	console.log('test');
 
 	res.setHeader('Content-Type', 'application/json');
 
@@ -47,6 +66,15 @@ app.post('/form',function(req, res){
 	controller.manageAccess(plate, idCam);
 	
 	res.send('ok');	
+});
+
+app.get('/users',function(req, res){
+	controllerGet.getAllUsers(res);
+});
+
+app.post('/user',function(req, res){
+	console.log("ADD USER");
+	controllerGet.addUser(res,req);
 });
 
 //wait for a connection
