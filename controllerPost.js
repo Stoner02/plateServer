@@ -92,6 +92,14 @@ module.exports = {
 				function (err, result, fields) {
 					if (err) throw err;
 					console.log('Message: '+result[0][0].message);
+					var idPrivilege = result[0][0].result;
+					console.log("IdPrivilege:"+idPrivilege);
+					//LIER PRIVILEGE AU PARKING (ACCES 1 PAR DEFAUT)
+					connection.query("CALL ps_insert_PrivilegeAcces(" + idPrivilege + ", + " + 1 +")",function (err, result, fields) {
+						if (err) throw err;
+						console.log('Message: '+result[0][0].message);
+						resolve(result[0][0].result);
+					});
 					resolve(result[0][0].result);
 				});
         })
@@ -123,7 +131,9 @@ module.exports = {
 					if (err) throw err;
 					console.log('Message: '+result[0][0].message);
 					resolve(result[0][0].result);
+					
 				});
+				
         })
             .then(data => {
                 bResult=data;

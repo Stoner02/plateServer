@@ -87,8 +87,13 @@ app.get('/privileges',function(req, res){
 	controllerGet.getAllPrivileges(res);
 });
 
+
 app.get('/parkings',function(req, res){
 	controllerGet.getAllParkings(res);
+});
+
+app.get('/access/:idParking/:filter',function(req, res){
+	controllerGet.getAccessBy(res, req);
 });
 
 app.post('/user',function(req, res){
