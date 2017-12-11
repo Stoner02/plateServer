@@ -32,7 +32,9 @@ app.use(allowCrossDomain);
 
 //for DB calls
 var controller = require('./controller.js');
-var controllerGet = require('./controllerGetPost.js');
+var controllerGet = require('./controllerGet.js');
+var controllerPost = require('./controllerPost.js');
+
 
 //-----------------------------
 // Déclaration des caméras
@@ -73,8 +75,7 @@ app.get('/users',function(req, res){
 });
 
 app.post('/user',function(req, res){
-	console.log("ADD USER");
-	controllerGet.addUser(res,req);
+	controllerPost.addUser(res,req);
 });
 
 //wait for a connection
