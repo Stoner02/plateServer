@@ -33,7 +33,9 @@ app.use(allowCrossDomain);
 //for DB calls
 var controller = require('./controller.js');
 var controllerGet = require('./controllerGet.js');
-var controllerPost = require('./controllerPost.js');
+var controllerPost = require('./controllerPost.js');.
+var controllerPut = require('./controllerPut.js');
+
 
 
 //-----------------------------
