@@ -182,4 +182,60 @@ module.exports = {
             });
 			
     },
+	
+	getAllPassages: function getAllPassages(res, req){
+        
+        var bResult = '';
+		
+        var p = new Promise((resolve, reject) => {
+        var querryRes = 100;
+		var idUser = req.params.idUser;		
+		console.log('icicici');
+			bd.connection.query("CALL ps_SelectAll_Acces()", function (err, result, fields) {
+				if (err) throw err;
+				var dataAcces = result[0];	
+				bd.connection.query("CALL ps_SelectAll_Parking()", function (err, result, fields) {
+					if (err) throw err;
+					var dataParking = result[0];
+					
+					bd.connection.query("CALL ps_SelectAll_Passage()", function (err, result, fields) {
+						if (err) throw err;
+						dataPassages = result[0];
+						bResult=dataPassages;
+
+						for (i in bResult) {
+							for(j in dataAcces){
+								if(dataAcces[j].idAccess == bResult[i].FK_access){
+									Object.assign(bResult[i], {
+										nomAcces: dataAcces[j].nom
+									});
+									
+									for(k in dataParking){
+										if(dataParking[k].idParking == dataAcces[j].FK_parking){
+											Object.assign(bResult[i], {
+												nomParking: dataParking[k].nom
+											});
+										}
+									}
+								}
+								
+							}
+							
+						}
+						resolve(bResult);
+					});
+				});	
+			});
+        })
+            .then(data2 => {
+                bResult2=data2;
+				res.status(200).json(bResult2);
+				return (bResult2);
+            })
+            .catch((error) => {
+            console.log("error", error);
+			return null;
+            });			
+    },
+	
 };

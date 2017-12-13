@@ -32,6 +32,10 @@ module.exports = function(app) {
 	app.get('/passages/:idUser/',function(req, res){
 		controllerGet.getAllPassagesByUsers(res, req);
 	});
+	
+	app.get('/passages',function(req, res){
+		controllerGet.getAllPassages(res, req);
+	});
 
 	app.post('/user',function(req, res){
 		controllerPost.addUser(res,req);
