@@ -133,12 +133,12 @@ module.exports = {
         var bResult = '';
 		
         var p = new Promise((resolve, reject) => {
-            var querryRes = 100;
-			var idUser = req.params.idUser;		
-				bd.connection.query("CALL ps_SelectAll_Acces()", function (err, result, fields) {
-					if (err) throw err;
-					var dataAcces = result[0];	
-					bd.connection.query("CALL ps_SelectAll_Parking()", function (err, result, fields) {
+        var querryRes = 100;
+		var idUser = req.params.idUser;		
+			bd.connection.query("CALL ps_SelectAll_Acces()", function (err, result, fields) {
+				if (err) throw err;
+				var dataAcces = result[0];	
+				bd.connection.query("CALL ps_SelectAll_Parking()", function (err, result, fields) {
 					if (err) throw err;
 					var dataParking = result[0];
 					
@@ -169,7 +169,7 @@ module.exports = {
 						resolve(bResult);
 					});
 				});	
-            });
+			});
         })
             .then(data2 => {
                 bResult2=data2;
