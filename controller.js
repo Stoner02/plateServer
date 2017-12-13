@@ -9,7 +9,7 @@ var mysql = require('mysql');
 //  Création de la connexion à la base de donnée.
 //-----------------------------
 var connection = mysql.createConnection({
-    host: 'localhost', 	//'192.168.0.1'
+    host: '127.0.0.1', 	//'192.168.0.1'
     user: 'admin', 			//'admin'
     password: 'admin', 		//'admin'
     database: 'parking'
