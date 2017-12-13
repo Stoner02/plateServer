@@ -1,19 +1,6 @@
 var server = require('./server.js');
-//-----------------------------
-//  Récupération de la connexion à la base.
-//-----------------------------
-var mysql = require('mysql');
 
-
-//-----------------------------
-//  Création de la connexion à la base de donnée.
-//-----------------------------
-var connection = mysql.createConnection({
-    host: '127.0.0.1', 	//'192.168.0.1'
-    user: 'admin', 			//'admin'
-    password: 'admin', 		//'admin'
-    database: 'parking'
-});
+var bd = require('./connexion BD');
 
 module.exports = {
 
@@ -23,7 +10,7 @@ module.exports = {
 		
         var p = new Promise((resolve, reject) => {
             var querryRes = 100;
-            connection.query("CALL ps_SelectAll_Utilisateur()", function (err, result, fields) {
+            bd.connection.query("CALL ps_SelectAll_Utilisateur()", function (err, result, fields) {
                 if (err) throw err;
                 resolve(result[0]);
             });
@@ -46,7 +33,7 @@ module.exports = {
 		
         var p = new Promise((resolve, reject) => {
             var querryRes = 100;
-            connection.query("CALL ps_SelectAll_Groupe()", function (err, result, fields) {
+            bd.connection.query("CALL ps_SelectAll_Groupe()", function (err, result, fields) {
                 if (err) throw err;
                 resolve(result[0]);
             });
@@ -69,7 +56,7 @@ module.exports = {
 		
         var p = new Promise((resolve, reject) => {
             var querryRes = 100;
-            connection.query("CALL ps_SelectAll_Privilege()", function (err, result, fields) {
+            bd.connection.query("CALL ps_SelectAll_Privilege()", function (err, result, fields) {
                 if (err) throw err;
                 resolve(result[0]);
             });
@@ -95,12 +82,12 @@ module.exports = {
 			console.log(req.params.filter);
 			console.log(req.params.idParking);
 			if(req.params.filter == 'on'){
-				connection.query("CALL ps_Get_AccesByIdParking(" + req.params.idParking +")", function (err, result, fields) {
+				bd.connection.query("CALL ps_Get_AccesByIdParking(" + req.params.idParking +")", function (err, result, fields) {
 					if (err) throw err;
 					resolve(result[0]);
 				});
             }else if(req.params.filter == 'off'){
-				connection.query("CALL ps_Get_AccesByIdParkingBarre(" + req.params.idParking +")", function (err, result, fields) {
+				bd.connection.query("CALL ps_Get_AccesByIdParkingBarre(" + req.params.idParking +")", function (err, result, fields) {
 					if (err) throw err;
 					resolve(result[0]);
 				});
@@ -124,7 +111,7 @@ module.exports = {
 		
         var p = new Promise((resolve, reject) => {
             var querryRes = 100;
-            connection.query("CALL ps_SelectAll_Parking()", function (err, result, fields) {
+            bd.connection.query("CALL ps_SelectAll_Parking()", function (err, result, fields) {
                 if (err) throw err;
                 resolve(result[0]);
             });

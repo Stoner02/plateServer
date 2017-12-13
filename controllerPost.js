@@ -1,19 +1,7 @@
 var server = require('./server.js');
-//-----------------------------
-//  Récupération de la connexion à la base.
-//-----------------------------
-var mysql = require('mysql');
 
+var bd = require('./connexion BD');
 
-//-----------------------------
-//  Création de la connexion à la base de donnée.
-//-----------------------------
-var connection = mysql.createConnection({
-    host: '127.0.0.1', 	//'192.168.0.1'
-    user: 'admin', 			//'admin'
-    password: 'admin', 		//'admin'
-    database: 'parking'
-});
 
 module.exports = {
 	

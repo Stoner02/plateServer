@@ -1,19 +1,6 @@
 var server = require('./server.js');
-//-----------------------------
-//  Récupération de la connexion à la base.
-//-----------------------------
-var mysql = require('mysql');
 
-
-//-----------------------------
-//  Création de la connexion à la base de donnée.
-//-----------------------------
-var connection = mysql.createConnection({
-    host: '127.0.0.1', 	//'192.168.0.1'
-    user: 'admin', 			//'admin'
-    password: 'admin', 		//'admin'
-    database: 'parking'
-});
+var bd = require('./connexion BD');
 
 module.exports = {
 	
@@ -31,7 +18,7 @@ module.exports = {
 			var iIdGroupe = Number(req.body.FK_groupe);
 
 
-            connection.query("CALL ps_Update_Utilisateur(" + iIdUtilisateur + ",'" + sNom + "', '" + sPrenom + "', '" + sMail + "', '" + sPassword + "',"+ bState + "," + iIdGroupe + ")",
+            bd.connection.query("CALL ps_Update_Utilisateur(" + iIdUtilisateur + ",'" + sNom + "', '" + sPrenom + "', '" + sMail + "', '" + sPassword + "',"+ bState + "," + iIdGroupe + ")",
 				function (err, result, fields) {
 					if (err) throw err;
 					console.log('Message: '+result[0][0].message);
@@ -59,7 +46,7 @@ module.exports = {
 			var sNom = req.body.nom;
 			var bState = Number(req.body.state);
 
-            connection.query("CALL ps_Update_Groupe(" + iIdGroupe + ",'" + sNom + "',"+ bState + ")",
+            bd.connection.query("CALL ps_Update_Groupe(" + iIdGroupe + ",'" + sNom + "',"+ bState + ")",
 				function (err, result, fields) {
 					if (err) throw err;
 					console.log('Message: '+result[0][0].message);
@@ -87,7 +74,7 @@ module.exports = {
 			var sNom = req.body.nom;
 			var bState = Number(req.body.state);
 
-            connection.query("CALL ps_Update_Privilege(" + iIdPrivilege + ",'" + sNom + "',"+ bState + ")",
+            bd.connection.query("CALL ps_Update_Privilege(" + iIdPrivilege + ",'" + sNom + "',"+ bState + ")",
 				function (err, result, fields) {
 					if (err) throw err;
 					console.log('Message: '+result[0][0].message);
@@ -114,7 +101,7 @@ module.exports = {
 			var iIdParking = req.body.idParking;
 			var sNom = req.body.nom;
 
-            connection.query("CALL ps_Update_Parking(" + iIdParking + ",'" + sNom + "')",
+            bd.connection.query("CALL ps_Update_Parking(" + iIdParking + ",'" + sNom + "')",
 				function (err, result, fields) {
 					if (err) throw err;
 					console.log('Message: '+result[0][0].message);
