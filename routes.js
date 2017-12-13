@@ -28,6 +28,10 @@ module.exports = function(app) {
 	app.get('/access/:idParking/:filter',function(req, res){
 		controllerGet.getAccessBy(res, req);
 	});
+	
+	app.get('/passages/:idUser/',function(req, res){
+		controllerGet.getAllPassagesByUsers(res, req);
+	});
 
 	app.post('/user',function(req, res){
 		controllerPost.addUser(res,req);
