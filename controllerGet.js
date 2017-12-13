@@ -198,31 +198,46 @@ module.exports = {
 					if (err) throw err;
 					var dataParking = result[0];
 					
-					bd.connection.query("CALL ps_SelectAll_Passage()", function (err, result, fields) {
+					bd.connection.query("CALL ps_SelectAll_Utilisateur()", function (err, result, fields) {
 						if (err) throw err;
-						dataPassages = result[0];
-						bResult=dataPassages;
+						var dataUsers = result[0];
+						
+						bd.connection.query("CALL ps_SelectAll_Passage()", function (err, result, fields) {
+							if (err) throw err;
+							dataPassages = result[0];
+							bResult=dataPassages;
 
-						for (i in bResult) {
-							for(j in dataAcces){
-								if(dataAcces[j].idAccess == bResult[i].FK_access){
-									Object.assign(bResult[i], {
-										nomAcces: dataAcces[j].nom
-									});
-									
-									for(k in dataParking){
-										if(dataParking[k].idParking == dataAcces[j].FK_parking){
-											Object.assign(bResult[i], {
-												nomParking: dataParking[k].nom
-											});
+							for (i in bResult) {
+								for(j in dataAcces){
+									if(dataAcces[j].idAccess == bResult[i].FK_access){
+										Object.assign(bResult[i], {
+											nomAcces: dataAcces[j].nom
+										});
+										
+										for(k in dataParking){
+											if(dataParking[k].idParking == dataAcces[j].FK_parking){
+												Object.assign(bResult[i], {
+													nomParking: dataParking[k].nom
+												});
+											}
 										}
 									}
+									
+									for(l in dataUsers){
+											if(dataUsers[l].idUser == bResult[i].FK_user){
+												Object.assign(bResult[i], {
+													nomUser: dataUsers[l].nom,
+													prenomUser: dataUsers[l].prenom,
+													mailUser: dataUsers[l].mail
+												});
+											}
+										}
+									
 								}
 								
 							}
-							
-						}
-						resolve(bResult);
+							resolve(bResult);
+						});
 					});
 				});	
 			});
