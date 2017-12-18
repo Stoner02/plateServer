@@ -1,4 +1,4 @@
-/*var server = require('./server.js');
+var server = require('./server.js');
 //-----------------------------
 //  Récupération de la connexion à la base.
 //-----------------------------
@@ -13,11 +13,11 @@ var connection = mysql.createConnection({
     user: 'admin', 			//'admin'
     password: 'admin', 		//'admin'
     database: 'parking'
-}); */
+});
 
-var server = require('./server.js');
+/*var server = require('./server.js');
 
-var bd = require('./connexion BD');
+var bd = require('./connexion BD');*/
 
 
 module.exports = {

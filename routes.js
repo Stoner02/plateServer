@@ -20,7 +20,6 @@ module.exports = function(app) {
 		controllerGet.getAllPrivileges(res);
 	});
 
-
 	app.get('/parkings',function(req, res){
 		controllerGet.getAllParkings(res);
 	});
@@ -29,12 +28,24 @@ module.exports = function(app) {
 		controllerGet.getAccessBy(res, req);
 	});
 	
+	app.get('/privileges/:idGroup/:filter',function(req, res){
+		controllerGet.getPrivilegeBy(res, req);
+	});
+	
+	app.get('/access/all',function(req, res){
+		controllerGet.getAllAccess(res, req);
+	});
+	
 	app.get('/passages/:idUser/',function(req, res){
 		controllerGet.getAllPassagesByUsers(res, req);
 	});
 	
 	app.get('/passages',function(req, res){
 		controllerGet.getAllPassages(res, req);
+	});
+	
+	app.post('/login',function(req, res){
+		controllerPost.getLogin(res, req);
 	});
 
 	app.post('/user',function(req, res){
@@ -51,6 +62,10 @@ module.exports = function(app) {
 
 	app.post('/parking',function(req, res){
 		controllerPost.addParking(res,req);
+	});
+	
+	app.post('/vehicule',function(req, res){
+		controllerPost.addVehicule(res,req);
 	});
 
 	app.delete('/user/:idUser',function(req, res){

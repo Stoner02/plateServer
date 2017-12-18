@@ -12,7 +12,7 @@ module.exports = {
         var p = new Promise((resolve, reject) => {
 			var iIdUtilisateur = Number(req.params.idUser);
 
-            connection.query("CALL ps_DesactiverUtilisateur(" + iIdUtilisateur +")",
+            bd.connection.query("CALL ps_DesactiverUtilisateur(" + iIdUtilisateur +")",
 				function (err, result, fields) {
 					if (err) throw err;
 					console.log('Message: '+result[0][0].message);
@@ -38,7 +38,7 @@ module.exports = {
         var p = new Promise((resolve, reject) => {
 			var iIdGroupe = Number(req.params.idGroup);
 
-            connection.query("CALL ps_DesactiverGroupe(" + iIdGroupe +")",
+            bd.connection.query("CALL ps_DesactiverGroupe(" + iIdGroupe +")",
 				function (err, result, fields) {
 					if (err) throw err;
 					console.log('Message: '+result[0][0].message);
@@ -64,7 +64,7 @@ module.exports = {
         var p = new Promise((resolve, reject) => {
 			var iIdPrivilege = Number(req.params.idPrivilege);
 
-            connection.query("CALL ps_DesactiverPrivilege(" + iIdPrivilege +")",
+            bd.connection.query("CALL ps_DesactiverPrivilege(" + iIdPrivilege +")",
 				function (err, result, fields) {
 					if (err) throw err;
 					console.log('Message: '+result[0][0].message);
@@ -90,7 +90,7 @@ module.exports = {
         var p = new Promise((resolve, reject) => {
 			var iIdParking = Number(req.params.idParking);
 
-            connection.query("CALL ps_Desactiver_Parking(" + iIdParking +")",
+            bd.connection.query("CALL ps_Desactiver_Parking(" + iIdParking +")",
 				function (err, result, fields) {
 					if (err) throw err;
 					console.log('Message: '+result[0][0].message);
