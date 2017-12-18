@@ -214,19 +214,35 @@ module.exports = {
         var p = new Promise((resolve, reject) => {
 			var sPlaque = req.body.plaque;
 			var iIdUtilisateur = req.body.idUser;
-
-            bd.connection.query("CALL ps_Insert_Vehicule(" + iIdUtilisateur + ",'"+sPlaque+"')",
+			
+			bd.connection.query("CALL ps_DeleteALL_VehiculeByUser("+iIdUtilisateur+")",
 				function (err, result, fields) {
-					if (err){
-						resolve(1);
-					}else{
-						console.log('Message: '+result[0][0].message);
-						resolve(result[0][0].result);
-					}
-					
-					
+						bd.connection.query("CALL ps_Get_VehiculeById('"+sPlaque+"')",
+						function (err, result, fields) {
+							var vehiculee = result;
+							if (err){
+								resolve(1);
+							}else{
+								if(result[0].length > 0){
+									resolve(1);
+								}else{					
+									bd.connection.query("CALL ps_Insert_Vehicule(" + iIdUtilisateur + ",'"+sPlaque+"')",
+									function (err, result, fields) {
+									if (err){
+										resolve(1);
+									}else{
+										console.log('Message: '+result[0][0].message);
+										resolve(result[0][0].result);
+									}				
+								});		
+							}	
+						}										
+					});			
 				});
-				
+			
+			
+			
+			
         })
             .then(data => {
                 bResult=data;

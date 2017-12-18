@@ -9,11 +9,25 @@ module.exports = {
         var bResult = '';
 		
         var p = new Promise((resolve, reject) => {
-            var querryRes = 100;
             bd.connection.query("CALL ps_SelectAll_Utilisateur()", function (err, result, fields) {
                 if (err) throw err;
-                resolve(result[0]);
-            });
+				users = result;
+				bd.connection.query("CALL ps_SelectAll_Vehicule()", function (err, result, fields) {
+					if (err) throw err;	
+					vehicules = result;
+					for(i in users[0]){
+						for(j in vehicules[0]){
+							if(vehicules[0][j].FK_user == users[0][i].idUser){
+								Object.assign(users[0][i], {
+									vehicule: vehicules[0][j].plaque
+								});
+							}
+						
+						}	
+					}
+					resolve(users[0]);
+				});
+			});
         })
             .then(data => {
                 bResult=data;
