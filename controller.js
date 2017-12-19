@@ -15,6 +15,11 @@ var connection = mysql.createConnection({
     database: 'parking'
 });
 
+/*var server = require('./server.js');
+
+var bd = require('./connexion BD');*/
+
+
 module.exports = {
 
     //---------------------------------
