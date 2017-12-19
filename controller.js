@@ -9,7 +9,7 @@ var mysql = require('mysql');
 //  Création de la connexion à la base de donnée.
 //-----------------------------
 var connection = mysql.createConnection({
-    host: 'localhost', 	//'192.168.0.1'
+    host: '10.113.101.59', 	//'192.168.0.1'
     user: 'admin', 			//'admin'
     password: 'admin', 		//'admin'
     database: 'parking'
@@ -85,14 +85,30 @@ module.exports = {
         connection.connect(function (err) {
             connection.query("CALL ps_VerifyLogin('" + sMail + "', '" + sPassword + "')", function (err, result, fields) {
                 if (err) throw err;
+                console.log("******DB says: " + result[0][0]['message']);
+                bResult = result[0][0]['result'];
+            });
+        });
+
+        return bResult;
+    },
+
+    //---------------------------------
+    // Log the passage of the vehicule
+    //---------------------------------
+    logAccess: function logAccess(direction, plate, idAccess){
+
+        var bResult = 0;
+
+        connection.connect(function (err) {
+            connection.query("CALL ps_Insert_Passage('" + direction + "', '" + plate + "', '" + idAccess + "')", function (err, result, fields) {
+                if (err) throw err;
                 console.log(result[0][0]['result']);
                 console.log(result[0][0]['message']);
                 bResult = result[0][0]['result'];
             });
         });
         
-        connection.destroy();
-
         return bResult;
     }
 

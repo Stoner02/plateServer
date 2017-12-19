@@ -69,12 +69,12 @@ function doAccess(plateExist, idCam, plate){
 		console.log("CAM1: plaque ok : " + plate);
 
 		if(plateCam2 == plate){ //La voiture est sortie !!!
-			//todo La voiture est sortie (log) OUT
-			console.log("CAM1: plaque OUT:" + plate);
+			controller.logAccess("OUT", plate, 1);
+			console.log("------------>CAM1: plaque OUT:" + plate + "<------------");
 			plateCam2 = 0;
 		}
 		else{ //La voiture VA rentrer
-			console.log("CAM1: plaque " + plate + " va entrer");
+			console.log("------------>CAM1: plaque " + plate + " va entrer");
 			//old code**
 			plateCam1 = plate;
 		}
@@ -86,12 +86,12 @@ function doAccess(plateExist, idCam, plate){
 		console.log("CAM2: plaque ok: " + plate);
 
 		if(plateCam1 == plate){ //La voiture est entrée !!!
-			//todo La voiture est entrée (log) IN
-			console.log("CAM2: plaque IN:" + plate);
+			controller.logAccess("IN", plate, 1);
+			console.log("------------>CAM2: plaque IN:" + plate+  "<------------");
 			plateCam1 = 0;
 		}
 		else{ //La voiture VA sortir
-			console.log("CAM2: plaque " + plate + " va sortir");
+			console.log("------------>CAM2: plaque " + plate + " va sortir");
 			plateCam2 = plate;
 		}
 		
