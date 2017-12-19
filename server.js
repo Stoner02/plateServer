@@ -99,7 +99,7 @@ function doAccess(plateExist, idCam, plate){
 		console.log("CAM1: plaque ok : " + plate);
 
 		if(plateCam2 == plate){ //La voiture est sortie !!!
-			controller.logAccess("OUT", plate, 1);
+			controller.logAccess("OUT", plate, 19);
 			console.log("------------>CAM1: plaque OUT:" + plate + "<------------");
 			plateCam2 = 0;
 		}
@@ -116,7 +116,7 @@ function doAccess(plateExist, idCam, plate){
 		console.log("CAM2: plaque ok: " + plate);
 
 		if(plateCam1 == plate){ //La voiture est entrée !!!
-			controller.logAccess("IN", plate, 1);
+			controller.logAccess("IN", plate, 19);
 			console.log("------------>CAM2: plaque IN:" + plate+  "<------------");
 			plateCam1 = 0;
 		}
@@ -125,6 +125,8 @@ function doAccess(plateExist, idCam, plate){
 			plateCam2 = plate;
 		}
 		
+	}else if(plateExist == 3){
+		console.log("PLAQUE RECONNUE MAIS NON AUTORISEE");
 	}
 	else{ //Plaque inconnue
 		console.log("Plaque inconnue: " + plate);

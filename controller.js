@@ -9,7 +9,7 @@ var mysql = require('mysql');
 //  Création de la connexion à la base de donnée.
 //-----------------------------
 var connection = mysql.createConnection({
-    host: '10.113.101.59', 	//'192.168.0.1'
+    host: 'localhost', 	//'192.168.0.1'
     user: 'admin', 			//'admin'
     password: 'admin', 		//'admin'
     database: 'parking'
@@ -59,8 +59,22 @@ module.exports = {
             var querryRes = 100;
             connection.query("CALL ps_ExistencePlaque('" + sPlaque + "')", function (err, result, fields) {
                 if (err) throw err;
-                querryRes = result[0][0].result;
-                resolve(querryRes);
+				querryRes = result[0][0].result;
+				if(querryRes == 0){
+					console.log("djos");
+					resolve(querryRes);
+				}else{
+					connection.query("CALL ps_DroitAccesParking('" + sPlaque + "',"+19+")", function (err, result, fields) {
+						if (err) throw err;
+						if(result[0][0].result == 0){
+							resolve(3);
+						}else{
+							resolve(result[0][0].result)
+						}
+					});
+				}
+				
+                
             });
         })
             .then(data => {
